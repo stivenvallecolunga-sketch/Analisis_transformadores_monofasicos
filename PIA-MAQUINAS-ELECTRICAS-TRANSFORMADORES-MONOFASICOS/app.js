@@ -166,6 +166,10 @@ function dibujar() {
 /* ---------- Imprimir: datos, diagramas y resultados ---------- */
 const mas = $(".mas");
 let masAbierto = false;
-window.addEventListener("beforeprint", () => { masAbierto = mas.open; mas.open = true; });
+function ponerFecha() {
+  $("#fecha-impresion").textContent = new Date().toLocaleDateString("es-MX", { day: "numeric", month: "long", year: "numeric" });
+}
+ponerFecha();
+window.addEventListener("beforeprint", () => { masAbierto = mas.open; mas.open = true; ponerFecha(); });
 window.addEventListener("afterprint", () => { mas.open = masAbierto; });
 $("#imprimir").addEventListener("click", () => window.print());
