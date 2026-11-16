@@ -162,3 +162,10 @@ function dibujar() {
 
   $("#diagramas").innerHTML = ideal + prim + sec;
 }
+
+/* ---------- Imprimir: datos, diagramas y resultados ---------- */
+const mas = $(".mas");
+let masAbierto = false;
+window.addEventListener("beforeprint", () => { masAbierto = mas.open; mas.open = true; });
+window.addEventListener("afterprint", () => { mas.open = masAbierto; });
+$("#imprimir").addEventListener("click", () => window.print());
