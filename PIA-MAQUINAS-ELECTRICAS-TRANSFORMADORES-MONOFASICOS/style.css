@@ -1,12 +1,12 @@
-/* Minimalista: blanco, verde claro para superficies, verde oscuro para detalles, negro para el texto. */
+
 :root{
  --fondo:#ffffff;
  --texto:#0f1a14;
  --suave:#5f6f65;
- --claro:#eaf6ee;      /* verde clarito: campos y paneles */
+ --claro:#eaf6ee;      
  --linea:#d5e7da;
- --medio:#7cc496;      /* verde de acento */
- --oscuro:#0f5132;     /* verde oscuro: detalles, botones, letras de inciso */
+ --medio:#7cc496;      
+ --oscuro:#0f5132;     
  --error:#b42318;
  --r:10px;
  color-scheme:light;
@@ -24,7 +24,7 @@ body{
 }
 .sheet{max-width:1120px;margin:0 auto;padding:0 24px env(safe-area-inset-bottom)}
 
-/* ---------- Encabezado ---------- */
+
 .head{padding:calc(48px + env(safe-area-inset-top)) 0 32px}
 .head h1{margin:0;font-weight:800;font-size:clamp(2rem,6vw,3.4rem);line-height:1.02;letter-spacing:-.025em}
 .head h1::after{content:"";display:block;width:56px;height:5px;border-radius:3px;background:var(--medio);margin-top:18px}
@@ -33,7 +33,7 @@ body{
 
 .layout{display:grid;grid-template-columns:330px 1fr;gap:48px;align-items:start}
 
-/* ---------- Formulario ---------- */
+
 .datos{position:sticky;top:20px}
 fieldset{border:0;margin:0 0 26px;padding:0}
 legend{padding:0;margin-bottom:8px;font-weight:700}
@@ -75,7 +75,7 @@ button{font:inherit;cursor:pointer;color:inherit}
 
 #err{margin:14px 0 0;color:var(--error);background:color-mix(in srgb,var(--error) 9%,transparent);border-radius:var(--r);padding:10px 12px;font-size:.92rem}
 
-/* ---------- Resultados ---------- */
+
 .hoja{min-width:0}
 .vacio{background:var(--claro);border-radius:calc(var(--r) * 1.6);padding:48px 24px;color:var(--suave);text-align:center}
 .vacio p{margin:4px 0}
@@ -98,8 +98,9 @@ button{font:inherit;cursor:pointer;color:inherit}
 .barra{margin:0 0 8px;color:var(--suave);font-size:.88rem;flex-wrap:wrap}
 .barra span{margin-right:2px}
 #copiar{margin-left:auto}
+.barra .imprimir{background:var(--oscuro);border-color:var(--oscuro);color:var(--fondo);font-weight:600}
 
-/* Cada inciso lleva su letra en verde oscuro con una línea verde clara al lado */
+
 .pasos{list-style:none;margin:0;padding:0}
 .paso{display:grid;grid-template-columns:52px 1fr;padding:14px 0;border-top:1px solid var(--linea)}
 .letra{padding-top:1px;font-weight:800;color:var(--oscuro)}
@@ -109,7 +110,7 @@ button{font:inherit;cursor:pointer;color:inherit}
 .fila dt{color:var(--suave);flex:0 0 auto;max-width:48%}
 .fila dd{margin:0;text-align:right;font-weight:600;overflow-wrap:anywhere}
 
-/* ---------- Sobre mí ---------- */
+
 .sobre{margin:72px 0 0;padding:40px 0 calc(40px + env(safe-area-inset-bottom));border-top:1px solid var(--linea);
  display:grid;grid-template-columns:330px 1fr;gap:48px}
 .sobre h2{margin:0;font-size:.95rem;font-weight:600;color:var(--suave)}
@@ -146,3 +147,47 @@ button{font:inherit;cursor:pointer;color:inherit}
 .circ figcaption{padding-bottom:0}
 #diagramas .circ{margin-bottom:14px}
 .desliza{padding:0 0 14px}
+
+
+@media print{
+ @page{size:letter;margin:14mm 14mm 16mm}
+ :root{--fondo:#fff;--texto:#000;--suave:#444;--claro:#fff;--linea:#bbb;--medio:#0f5132;--oscuro:#0f5132;color-scheme:light}
+ html,body{background:#fff;color:#000;font-size:10.5pt}
+ *{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+ .sheet{max-width:none;padding:0}
+ .head{padding:0 0 10px}
+ .head h1{font-size:20pt}
+ .head h1::after{margin-top:8px;height:3px}
+ .head p{margin-top:6px}
+
+ .layout{display:block}
+ .datos{position:static;columns:2;column-gap:28px;margin-bottom:14px}
+ fieldset{break-inside:avoid;margin:0 0 10px}
+ fieldset > label{grid-template-columns:1fr 12ch 44px;padding:1px 0;border-bottom:1px dotted var(--linea)}
+ fieldset > label > span{white-space:nowrap}
+ input[type=number],select{background:none;border:0;padding:0 10px 0 0;font-weight:600;color:#000;width:12ch}
+ fieldset > label > i{padding-left:2px}
+ .mas summary{display:none}
+ .mas,.mas fieldset{margin:0;break-inside:avoid}
+ .nota{margin-top:4px}
+ .acciones,#err,.ej,.barra,.desliza,.vacio{display:none !important}
+
+ .circ{background:none;border:1px solid var(--linea);break-inside:avoid;margin:0 0 10px}
+ .circ figcaption{padding:6px 10px 0}
+ .circ .svg{overflow:visible;padding:0 8px 6px}
+ .circ svg{min-width:0;max-width:100%}
+ .circ .w{stroke:#000}
+ .circ .n,.circ text{fill:#000}
+ .circ .sym{fill:var(--oscuro)}
+ .circ .val{fill:#333}
+
+ .pasos{margin-top:8px}
+ .paso{break-inside:auto;padding:6px 0}
+ .cuerpo h2{break-after:avoid}
+ .fila{break-inside:avoid}
+ .cuerpo{border-left-color:#d5e7da}
+ .fila{padding:1px 0}
+ .fila dt{max-width:50%}
+
+ .sobre{display:none !important}
+}
